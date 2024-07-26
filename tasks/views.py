@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -19,6 +20,7 @@ class TaskListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['completed']
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
         user_id = self.kwargs['pk']

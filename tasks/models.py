@@ -20,7 +20,7 @@ class Task(models.Model):
         return super(Task, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f'Задача {self.title} пользователя {self.user} -> {self.completed}'
+        return f'Задача {self.title} пользователя {self.user}'
 
     class Meta:
         verbose_name = 'Задача'

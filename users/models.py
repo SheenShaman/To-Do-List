@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
-from django.core.validators import EmailValidator
 from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
@@ -34,7 +33,7 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
 
-    email = models.EmailField(verbose_name='почта', unique=True, validators=[EmailValidator()])
+    email = models.EmailField(verbose_name='почта', unique=True)
 
     USERNAME_FIELD = 'email'
     objects = UserManager()

@@ -1,6 +1,8 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 from tasks.serializers import TaskSerializer, TaskDetailSerializer
 from tasks.models import Task
 
@@ -15,6 +17,8 @@ class TaskListView(generics.ListAPIView):
     """ Просмотр списка Задач Пользователя по его id """
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['completed']
 
     def get_queryset(self):
         user_id = self.kwargs['pk']

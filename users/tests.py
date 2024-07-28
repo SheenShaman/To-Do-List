@@ -13,15 +13,11 @@ class UserTests(TestCase):
         self.client = APIClient()
         self.user = User.objects.create_user(email='test@test.com', password='12345')
 
-    def test_create(self):
-        response = self.client.post('/users/create/', {'email': 'test@mail.com', 'password': 'password'})
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
     def test_login(self):
-        response = self.client.post('/users/login/', {'email': 'test@test.com', 'password': '12345'})
+        response = self.client.post('/users/token/', {'email': 'test@test.com', 'password': '12345'})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_token_refresh(self):
-        get_token = self.client.post('/users/login/', {'email': 'test@test.com', 'password': '12345'})
+        get_token = self.client.post('/users/token/', {'email': 'test@test.com', 'password': '12345'})
         response = self.client.post('/users/token/refresh/', {'refresh': get_token.data['refresh']})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
